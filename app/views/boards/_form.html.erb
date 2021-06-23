@@ -1,6 +1,6 @@
-<%= form_with(model: @board) do |f| %>
-  <%= render partial: 'shared/error_message', locals: { object: @board } %>
+<%= form_with(model: board, id: dom_id(board)) do |f| %>
+  <%= render partial: 'shared/error_message', locals: { object: board } %>
   <%= f.label :name %>
   <%= f.text_field :name, placeholder: 'eg. Food to eat' %>
-  <%= f.submit 'Create' %>
+  <%= f.submit 'Save' %>
 <% end %>

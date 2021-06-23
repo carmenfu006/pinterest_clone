@@ -8,4 +8,6 @@ class Pin < ApplicationRecord
   validates :title, presence: true
 
   after_create_commit { broadcast_append_to 'pins'}
+  after_update_commit { broadcast_replace_to 'pins'}
+  after_destroy_commit { broadcast_remove_to 'pins'}
 end
