@@ -1,1 +1,34 @@
-<h1>User : <%= current_user.email %></h1>
+<section class='user-profile'>
+  <div class='user-email'>
+    <h1>User : <%= current_user.email %></h1>
+  </div>
+  <div class='create-pin'>
+    <%= link_to 'Create Pin', new_pin_path %>
+  </div>
+  <div class='board-form'>
+    <h2>Create your board here</h2>
+    <%= form_with(model: @board) do |f| %>
+      <%= render partial: 'shared/error_message', locals: { object: @board } %>
+      <%= f.label :name %>
+      <%= f.text_field :name, placeholder: 'eg. Food to eat' %>
+      <%= f.submit 'Create' %>
+    <% end %>
+  </div>
+  <br>
+  <div class='list-of-board'>
+    <h2>List of boards</h2>
+    <% @boards.each do |board| %>
+      <%= link_to "#{board.name}", board_path(board) %>
+      <br>
+      <%= board.pins.count %> Pin(s)
+      <br>
+    <% end %>
+  </div>
+  <div class='list-of-pin'>
+    <h2>List of Pins</h2>
+    <% @pins.each do |pin| %>
+      <%= link_to "#{pin.title}", pin_path(pin) %>
+      <br>
+    <% end %>
+  </div>
+</section>

@@ -1,0 +1,12 @@
+<section class='board-show-page'>
+  <h1><%= @board.name %></h1>
+  <div class='list-of-pin'>
+    <% @board.pins.each do |pin| %>
+      <% if pin.image.attached? %>
+        <%= link_to pin_path(pin) do %>
+          <%= image_tag pin.image, style: 'width: 200px;' %>
+        <% end %>
+      <% end %>
+    <% end %>
+  </div>
+</section>
