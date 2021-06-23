@@ -1,6 +1,9 @@
 <section class='new-pin-page'>
   <h1>Create New Pin here</h1>
   <div class='pin-form'>
-    <%= render 'form' %>
+    <%= turbo_frame_tag 'new_pin' do %>
+      <%= render 'form' %>
+      <%= link_to 'Cancel', user_path(current_user) %>
+    <% end %>
   </div>
 </section>

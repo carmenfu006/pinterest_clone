@@ -3,32 +3,29 @@
     <h1>User : <%= current_user.email %></h1>
   </div>
   <div class='create-pin'>
-    <%= link_to 'Create Pin', new_pin_path %>
+    <h2>Create your pin here</h2>
+    <%= turbo_frame_tag 'new_pin' do %>
+      <%= link_to 'Create Pin', new_pin_path %>
+    <% end %>
   </div>
   <div class='board-form'>
     <h2>Create your board here</h2>
-    <%= form_with(model: @board) do |f| %>
-      <%= render partial: 'shared/error_message', locals: { object: @board } %>
-      <%= f.label :name %>
-      <%= f.text_field :name, placeholder: 'eg. Food to eat' %>
-      <%= f.submit 'Create' %>
+    <%= turbo_frame_tag 'new_board' do %>
+      <%= link_to 'Create Board', new_board_path %>
     <% end %>
-  </div>
   <br>
   <div class='list-of-board'>
     <h2>List of boards</h2>
-    <% @boards.each do |board| %>
-      <%= link_to "#{board.name}", board_path(board) %>
-      <br>
-      <%= board.pins.count %> Pin(s)
-      <br>
+    <%= turbo_stream_from 'boards' %>
+    <%= turbo_frame_tag 'boards' do %>
+      <%= render @boards %>
     <% end %>
   </div>
   <div class='list-of-pin'>
     <h2>List of Pins</h2>
-    <% @pins.each do |pin| %>
-      <%= link_to "#{pin.title}", pin_path(pin) %>
-      <br>
+    <%= turbo_stream_from 'pins' %>
+    <%= turbo_frame_tag 'pins' do %>
+      <%= render @pins %>
     <% end %>
   </div>
 </section>

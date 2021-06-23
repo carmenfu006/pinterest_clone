@@ -1,0 +1,4 @@
+<%= turbo_frame_tag dom_id(pin) do %>
+  <%= link_to "#{pin.title}", pin_path(pin), 'data-turbo-frame': '_top' %>
+  <br>
+<% end %>

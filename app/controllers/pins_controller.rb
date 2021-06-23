@@ -9,7 +9,7 @@ class PinsController < ApplicationController
     pin = Pin.create(pin_params)
 
     if pin.save
-      redirect_to pin_path(pin), notice: 'Pin was successfully created.'
+      redirect_to user_path(current_user), notice: 'Pin was successfully created.'
     else
       render :new
     end

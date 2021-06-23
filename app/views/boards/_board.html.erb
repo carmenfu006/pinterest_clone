@@ -1,0 +1,4 @@
+<%= turbo_frame_tag dom_id(board) do %>
+  <%= link_to "#{board.name}", board_path(board), 'data-turbo-frame': '_top' %>
+  <br>
+<% end %>

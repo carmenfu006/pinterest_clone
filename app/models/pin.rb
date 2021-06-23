@@ -6,4 +6,6 @@ class Pin < ApplicationRecord
   delegate :user, to: :board
 
   validates :title, presence: true
+
+  after_create_commit { broadcast_append_to 'pins'}
 end
