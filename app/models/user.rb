@@ -6,4 +6,5 @@ class User < ApplicationRecord
   
   has_many :boards
   has_many :pins, through: :boards
+  has_many :comments
 end

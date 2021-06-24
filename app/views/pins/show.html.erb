@@ -8,4 +8,16 @@
   <%= turbo_frame_tag 'edit_pin' do %>
     <%= link_to 'Edit', edit_pin_path(@pin) %>
   <% end %>
+
+  <section class='list-of-comment'>
+    <%= turbo_stream_from @pin, :comments %>
+    <%= turbo_frame_tag "#{dom_id(@pin)}_comments" do %>
+      <%= render @comments %>
+    <% end %>
+  </section>
+  <section class='comment-form'>
+    <%= turbo_frame_tag 'new_comment' do %>
+      <%= render partial: 'comments/form', locals: { comment: @comment, pin: @pin } %>
+    <% end %>
+  </section>
 </section>

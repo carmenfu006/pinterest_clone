@@ -3,6 +3,8 @@ class Pin < ApplicationRecord
 
   has_one_attached :image
 
+  has_many :comments
+
   delegate :user, to: :board
 
   validates :title, presence: true

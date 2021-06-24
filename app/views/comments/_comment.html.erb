@@ -1,0 +1,4 @@
+<%= turbo_frame_tag dom_id(comment) do %>
+  <p><%= comment.body %></p>
+  <%= button_to 'Delete', pin_comment_path(comment.pin, comment), method: :delete %>
+<% end %>

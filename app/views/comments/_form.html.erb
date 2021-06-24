@@ -1,0 +1,6 @@
+<%= form_with(model: [pin, comment], id: dom_id_for_records(pin, comment)) do |f| %>
+  <%= render partial: 'shared/error_message', locals: { object: comment } %>
+  <!-- <%= f.label :body, 'Comment' %> -->
+  <%= f.text_field :body %>
+  <%= f.submit 'Comment' %>
+<% end %>
