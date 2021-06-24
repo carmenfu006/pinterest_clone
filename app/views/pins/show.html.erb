@@ -4,4 +4,8 @@
   <% end %>
   <h1><%= @pin.title %></h1>
   <h1><%= @pin.about %></h1>
+
+  <%= turbo_frame_tag 'edit_pin' do %>
+    <%= link_to 'Edit', edit_pin_path(@pin) %>
+  <% end %>
 </section>

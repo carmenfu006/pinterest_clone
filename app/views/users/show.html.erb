@@ -1,12 +1,6 @@
-<section class='user-profile'>
+<section class='user-profile' data-controller='show-attachment'>
   <div class='user-email'>
     <h1>User : <%= current_user.email %></h1>
-  </div>
-  <div class='create-pin'>
-    <h2>Create your pin here</h2>
-    <%= turbo_frame_tag 'new_pin' do %>
-      <%= link_to 'Create Pin', new_pin_path %>
-    <% end %>
   </div>
   <div class='create-board'>
     <h2>Create your board here</h2>
@@ -21,11 +15,18 @@
       <%= render @boards %>
     <% end %>
   </div>
+  <br>
+  <div class='create-pin'>
+    <h2>Create your pin here</h2>
+    <%= turbo_frame_tag 'new_pin' do %>
+      <%= link_to 'Create Pin', new_pin_path %>
+    <% end %>
+  </div>
   <div class='list-of-pin'>
     <h2>List of Pins</h2>
     <%= turbo_stream_from 'pins' %>
     <%= turbo_frame_tag 'pins' do %>
-      <%= render @pins %>
+      <%= render partial: "pins/pin", collection: @pins %>
     <% end %>
   </div>
 </section>

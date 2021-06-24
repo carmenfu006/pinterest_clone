@@ -21,6 +21,22 @@ class PinsController < ApplicationController
     @pin = Pin.find(params[:id])
   end
 
+  def edit
+    @pin = Pin.find(params[:id])
+    @boards = @pin.user.boards
+  end
+
+  def update
+    pin = Pin.find(params[:id])
+    pin.update(pin_params)
+
+    if pin.save
+      redirect_to pin_path(pin), notice: 'Pin was successfully updated.'
+    else
+      redirect_to pin_path(pin), alert: 'There was an error. Please try again.'
+    end
+  end
+
   def destroy
     pin = Pin.find(params[:id])
 

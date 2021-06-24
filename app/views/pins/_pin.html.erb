@@ -1,4 +1,9 @@
 <%= turbo_frame_tag dom_id(pin) do %>
-  <%= link_to "#{pin.title}", pin_path(pin), 'data-turbo-frame': '_top' %>
+  <%= link_to pin_path(pin), 'data-turbo-frame': '_top' do %>
+    <% if pin.image.attached? %>
+      <%= image_tag pin.image, style: 'width: 200px;' %>
+    <% end %>
+    <h1><%= pin.title %></h1>
+  <% end %>
   <br>
 <% end %>
