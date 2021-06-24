@@ -11,7 +11,7 @@ class BoardsController < ApplicationController
       if board.save
         format.html { redirect_to user_path(current_user), notice: 'Board was successfully created.' }
       else
-        # redirect_to user_path(current_user), notice: 'There was an error. Please try again.'
+        format.html { redirect_to user_path(current_user), notice: 'There was an error. Please try again.' }
         format.turbo_stream { render turbo_stream: turbo_stream.replace(board, partial: 'boards/form', locals: { board: board })}
       end
     end
@@ -29,10 +29,13 @@ class BoardsController < ApplicationController
     board = Board.find(params[:id])
     board.update(board_params)
 
-    if board.save
-      redirect_to user_path(current_user), notice: 'Board was successfully updated.'
-    else
-      redirect_to user_path(current_user), notice: 'There was an error. Please try again.'
+    respond_to do |format|
+      if board.save
+        format.html { redirect_to user_path(current_user), notice: 'Board was successfully updated.' }
+      else
+        format.html { redirect_to user_path(current_user), notice: 'There was an error. Please try again.' }
+        format.turbo_stream { render turbo_stream: turbo_stream.replace(board, partial: 'boards/form', locals: { board: board })}
+      end
     end
   end
 

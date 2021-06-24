@@ -3,7 +3,7 @@ class Pin < ApplicationRecord
 
   has_one_attached :image
 
-  has_many :comments
+  has_many :comments, dependent: :destroy
 
   delegate :user, to: :board
 
