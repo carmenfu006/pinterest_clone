@@ -1,4 +1,5 @@
 <%= turbo_frame_tag dom_id(board) do %>
+  <!-- Anything you want to add must be inside this block if not turbo create will have problem -->
   <%= link_to "#{board.name}", board_path(board), 'data-turbo-frame': '_top' %>
   <br>
   <%= link_to 'Edit', edit_board_path(board) %>

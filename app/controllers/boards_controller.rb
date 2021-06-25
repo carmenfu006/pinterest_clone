@@ -44,6 +44,7 @@ class BoardsController < ApplicationController
     
     respond_to do |format|
       if board.destroy
+        format.turbo_stream { }
         format.html { redirect_to user_path(current_user), notice: 'Board was successfully destroyed.' }
       else
         format.turbo_stream { render turbo_stream: turbo_stream.replace(board, partial: 'boards/board', locals: { board: board })}

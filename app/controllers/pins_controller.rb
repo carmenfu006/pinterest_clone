@@ -19,13 +19,14 @@ class PinsController < ApplicationController
 
   def show
     @pin = Pin.find(params[:id])
+    @boards = current_user.boards
     @comment = Comment.new
     @comments = @pin.comments
   end
 
   def edit
     @pin = Pin.find(params[:id])
-    @boards = @pin.user.boards
+    @boards = current_user.boards
   end
 
   def update

@@ -25,8 +25,10 @@
   <div class='list-of-pin'>
     <h2>List of Pins</h2>
     <%= turbo_stream_from 'pins' %>
-    <%= turbo_frame_tag 'pins' do %>
-      <%= render partial: "pins/pin", collection: @pins %>
-    <% end %>
+    <section class='row'>
+      <%= turbo_frame_tag 'pins' do %>
+        <%= render partial: "pins/pin", collection: @pins %>
+      <% end %>
+    </section>
   </div>
 </section>

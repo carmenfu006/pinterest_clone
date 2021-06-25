@@ -2,7 +2,7 @@
   <h1>Create New Pin here</h1>
   <div class='pin-form'>
     <%= turbo_frame_tag 'new_pin' do %>
-      <%= render 'form', pin: @pin %>
+      <%= render partial: 'form', locals: { pin: @pin, boards: @boards } %>
       <%= link_to 'Cancel', user_path(current_user) %>
     <% end %>
   </div>
