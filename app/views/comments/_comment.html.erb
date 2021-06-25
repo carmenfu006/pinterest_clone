@@ -2,6 +2,8 @@
 <!-- <%= turbo_stream_from comment %> -->
 <!-- Here is every single comment in database -->
 <%= turbo_frame_tag dom_id(comment) do %>
-  <p><%= comment.body %></p>
-  <%= button_to 'Delete', pin_comment_path(comment.pin, comment), method: :delete, data: { confirm: 'Are your sure?' } %>
+  <div class="d-flex flex-row justify-content-between">
+    <p><%= comment.body %></p>
+    <%= button_to 'Delete', pin_comment_path(comment.pin, comment), method: :delete, data: { confirm: 'Are your sure?' } %>
+  </div>
 <% end %>

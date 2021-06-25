@@ -1,4 +1,4 @@
-<section class='user-profile'>
+<section class='user-profile' data-controller='pin-update'>
   <div class='user-email'>
     <h1>User : <%= current_user.email %></h1>
   </div>
@@ -17,18 +17,33 @@
   </div>
   <br>
   <div class='create-pin'>
+    <!-- Create Pin without stream and Stimulus -->
     <h2>Create your pin here</h2>
     <%= turbo_frame_tag 'new_pin' do %>
       <%= link_to 'Create Pin', new_pin_path %>
     <% end %>
   </div>
-  <div class='list-of-pin'>
+  <section class='list-of-pin'>
+    <!-- Create Pin without stream and Stimulus -->
     <h2>List of Pins</h2>
     <%= turbo_stream_from 'pins' %>
     <section class='row'>
-      <%= turbo_frame_tag 'pins' do %>
+      <!-- <%= turbo_frame_tag 'pins' do %>
         <%= render partial: "pins/pin", collection: @pins %>
+      <% end %> -->
+      <% @pins.each do |pin| %>
+        <section class='col-3'>
+          <!-- Need the dom_id(pin) so that when board was deleted it will also delete pins streamlessly -->
+          <%= turbo_frame_tag dom_id(pin) do %>
+            <%= link_to pin_path(pin), 'data-turbo-frame': '_top' do %>
+              <% if pin.image.attached? %>
+                <%= image_tag pin.image, style: 'width: 200px;' %>
+              <% end %>
+              <p><%= pin.title %></p>
+            <% end %>
+          <% end %>
+        </section>
       <% end %>
     </section>
-  </div>
+  </section>
 </section>

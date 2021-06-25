@@ -1,6 +1,8 @@
 <%= form_with(model: [pin, comment], id: dom_id_for_records(pin, comment), data: { controller: 'confirmation', action: 'turbo:submit-end->confirmation#update'}) do |f| %>
   <%= render partial: 'shared/error_message', locals: { object: comment } %>
   <!-- <%= f.label :body, 'Comment' %> -->
-  <%= f.text_field :body %>
-  <%= f.submit 'Comment' %>
+  <%= f.text_field :body, class: 'form-control' %>
+  <div class="d-grid gap-2 my-2">
+    <%= f.submit 'Comment', class:"btn btn-primary" %>
+  </div>
 <% end %>

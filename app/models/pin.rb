@@ -9,6 +9,8 @@ class Pin < ApplicationRecord
 
   validates :title, presence: true
 
-  after_create_commit { broadcast_append_to 'pins'}
+  # append will add the new pin at last which is ASC order
+  # prepend will add the new pin at first which is DESC order
+  # after_create_commit { broadcast_append_to 'pins'}
   after_destroy_commit { broadcast_remove_to 'pins'}
 end

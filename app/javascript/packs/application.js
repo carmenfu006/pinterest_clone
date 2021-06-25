@@ -7,6 +7,10 @@ import "@hotwired/turbo-rails"
 import * as ActiveStorage from "@rails/activestorage"
 import "channels"
 
+// Yarn
+import * as bootstrap from 'bootstrap'
+import '@popperjs/core'
+
 import "stylesheets/application"
 
 ActiveStorage.start()

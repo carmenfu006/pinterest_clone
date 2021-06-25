@@ -1,23 +1,36 @@
 <section class='pin-show-page' data-controller='pin-update'>
-  <% if @pin.image.attached? %>
-    <%= image_tag @pin.image, style: 'width: 400px;', data: { pin_update_target: 'pinImage'} %>
-  <% end %>
-  <h1 data-pin-update-target='pinTitle'><%= @pin.title %></h1>
-  <h1 data-pin-update-target='pinAbout'><%= @pin.about %></h1>
+  <section class='row'>
+    <section class='col-6'>
+      <% if @pin.image.attached? %>
+        <%= image_tag @pin.image, style: 'width: 400px;', data: { pin_update_target: 'pinImage'} %>
+      <% end %>
+      <h1 data-pin-update-target='pinTitle'><%= @pin.title %></h1>
+      <h1 data-pin-update-target='pinAbout'><%= @pin.about %></h1>
 
-  <%= turbo_frame_tag 'edit_pin' do %>
-    <%= link_to 'Edit', edit_pin_path(@pin) %>
-  <% end %>
-
-  <section class='list-of-comment'>
-    <%= turbo_stream_from @pin, :comments %>
-    <%= turbo_frame_tag "#{dom_id(@pin)}_comments" do %>
-      <%= render @comments %>
-    <% end %>
-  </section>
-  <section class='comment-form'>
-    <%= turbo_frame_tag 'new_comment' do %>
-      <%= render partial: 'comments/form', locals: { comment: @comment, pin: @pin } %>
-    <% end %>
+      <%= turbo_frame_tag 'edit_pin' do %>
+        <%= link_to 'Edit', edit_pin_path(@pin) %>
+      <% end %>
+    </section>
+    <section class='col-6 mt-2'>
+      <button class="btn btn-primary" type="button" data-bs-toggle="collapse" data-bs-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample">
+        Comment
+      </button>
+      <section class="collapse mt-5" id="collapseExample">
+        <section class="card card-body">
+          <section class='list-of-comment'>
+            <h1>Comments</h1>
+            <%= turbo_stream_from @pin, :comments %>
+            <%= turbo_frame_tag "#{dom_id(@pin)}_comments" do %>
+              <%= render @comments %>
+            <% end %>
+          </section>
+          <section class='comment-form'>
+            <%= turbo_frame_tag 'new_comment' do %>
+              <%= render partial: 'comments/form', locals: { comment: @comment, pin: @pin } %>
+            <% end %>
+          </section>
+        </section>
+      </section>
+    </section>
   </section>
 </section>
