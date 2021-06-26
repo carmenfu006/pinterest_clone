@@ -22,6 +22,7 @@ class PinsController < ApplicationController
     @boards = current_user.boards
     @comment = Comment.new
     @comments = @pin.comments
+    @like = Like.new
   end
 
   def edit

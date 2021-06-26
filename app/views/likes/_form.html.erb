@@ -1,0 +1,8 @@
+<% if comment.liked(current_user) %>
+  <%= button_to 'Unlike', like_path(comment.liked(current_user)), method: :delete %>
+<% else %>
+  <%= form_with(model: like) do |f| %>
+    <%= f.hidden_field :likeable, value: "#{comment.id}" %>
+    <%= f.submit 'Like' %>
+  <% end %>
+<% end %>

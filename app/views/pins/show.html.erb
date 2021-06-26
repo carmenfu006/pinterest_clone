@@ -26,7 +26,7 @@
           </section>
           <section class='comment-form'>
             <%= turbo_frame_tag 'new_comment' do %>
-              <%= render partial: 'comments/form', locals: { comment: @comment, pin: @pin } %>
+              <%= render partial: 'comments/form', locals: { comment: @comment, pin: @pin, like: @like } %>
             <% end %>
           </section>
         </section>

@@ -4,6 +4,8 @@ class Comment < ApplicationRecord
   belongs_to :user
   belongs_to :pin
 
+  has_many :likes, as: :likeable
+
   validates :body, presence: true
 
   after_create_commit do
@@ -12,5 +14,10 @@ class Comment < ApplicationRecord
 
   after_destroy_commit do
     broadcast_remove_to [pin, :comments]
+  end
+
+  def liked(user)
+    like = likes.find_by_user_id(user.id)
+    return like if like.present?
   end
 end

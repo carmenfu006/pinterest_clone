@@ -14,4 +14,5 @@ Rails.application.routes.draw do
   resources :pins do
     resources :comments
   end
+  resources :likes
 end
