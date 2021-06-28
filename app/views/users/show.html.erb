@@ -5,7 +5,8 @@
   <div class='create-board'>
     <h2>Create your board here</h2>
     <%= turbo_frame_tag 'new_board' do %>
-      <%= link_to 'Create Board', new_board_path %>
+      <!-- <%= link_to 'Create Board', new_board_path %> -->
+      <%= render 'boards/form', board: @board %>
     <% end %>
   <br>
   <div class='list-of-board'>
@@ -26,8 +27,8 @@
   <section class='list-of-pin'>
     <!-- Create Pin without stream and Stimulus -->
     <h2>List of Pins</h2>
-    <%= turbo_stream_from 'pins' %>
     <section class='row'>
+      <!-- <%= turbo_stream_from 'pins' %> -->
       <!-- <%= turbo_frame_tag 'pins' do %>
         <%= render partial: "pins/pin", collection: @pins %>
       <% end %> -->

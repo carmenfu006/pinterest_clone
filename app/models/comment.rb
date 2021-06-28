@@ -9,7 +9,7 @@ class Comment < ApplicationRecord
   validates :body, presence: true
 
   after_create_commit do
-    broadcast_append_later_to [pin, :comments], target: "#{dom_id(pin)}_comments"
+    broadcast_append_later_to [pin, :comments], target: "#{dom_id(pin)}_comments", locals: { user: self.user }
   end
 
   after_destroy_commit do

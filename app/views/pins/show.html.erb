@@ -1,6 +1,6 @@
 <section class='pin-show-page' data-controller='pin-update'>
   <section class='row'>
-    <section class='col-6'>
+    <section class='col-12'>
       <% if @pin.image.attached? %>
         <%= image_tag @pin.image, style: 'width: 400px;', data: { pin_update_target: 'pinImage'} %>
       <% end %>
@@ -11,7 +11,7 @@
         <%= link_to 'Edit', edit_pin_path(@pin) %>
       <% end %>
     </section>
-    <section class='col-6 mt-2'>
+    <section class='col-12 mt-2'>
       <button class="btn btn-primary" type="button" data-bs-toggle="collapse" data-bs-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample">
         Comment
       </button>
@@ -21,7 +21,7 @@
             <h1>Comments</h1>
             <%= turbo_stream_from @pin, :comments %>
             <%= turbo_frame_tag "#{dom_id(@pin)}_comments" do %>
-              <%= render @comments %>
+              <%= render @comments, user: current_user %>
             <% end %>
           </section>
           <section class='comment-form'>
