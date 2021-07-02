@@ -13,7 +13,7 @@
       <% else %>
         <%= render partial: 'likes/form', locals: { comment: comment, like: Like.new } %>
       <% end %>
-      <%= button_to 'Delete', pin_comment_path(comment.pin, comment), method: :delete, data: { confirm: 'Are your sure?' } %>
+      <%= button_to 'Delete', pin_comment_path(pin, comment), method: :delete, data: { confirm: 'Are your sure?' } %>
     </div>
   </div>
 <% end %>

@@ -17,11 +17,11 @@
       </button>
       <section class="collapse mt-5" id="collapseExample">
         <section class="card card-body">
-          <section class='list-of-comment'>
+          <section id='comments' class='list-of-comment'>
             <h1>Comments</h1>
-            <%= turbo_stream_from @pin, :comments %>
-            <%= turbo_frame_tag "#{dom_id(@pin)}_comments" do %>
-              <%= render @comments, user: current_user %>
+            <%= turbo_stream_from @pin %>
+            <%= turbo_frame_tag @pin do %>
+              <%= render @comments, user: current_user, pin: @pin %>
             <% end %>
           </section>
           <section class='comment-form'>
