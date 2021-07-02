@@ -9,12 +9,15 @@
     <div class="p-2 flex-shrink-1 bd-highlight">
       <p><%= comment.likes.count %> like(s)</p>
       <% if comment.liked(user) %>
-        <%= button_to 'Unlike', like_path(comment.liked(user)), method: :delete %>
+        <%= button_to 'Unlike', pin_comment_unlike_path(pin, comment), method: :delete %>
       <% else %>
-        <%= render partial: 'likes/form', locals: { comment: comment, like: Like.new } %>
+        <%= link_to 'Like', pin_comment_like_path(pin, comment), method: :post %>
       <% end %>
-      <%= link_to 'Edit', edit_pin_comment_path(pin, comment) %>
-      <%= button_to 'Delete', pin_comment_path(pin, comment), method: :delete, data: { confirm: 'Are your sure?' } %>
+
+      <% if comment.user == user %>
+        <%= link_to 'Edit', edit_pin_comment_path(pin, comment) %>
+        <%= button_to 'Delete', pin_comment_path(pin, comment), method: :delete, data: { confirm: 'Are your sure?' } %>
+      <% end %>
     </div>
   </div>
 <% end %>

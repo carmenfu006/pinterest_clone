@@ -1,7 +1,7 @@
 class CommentsController < ApplicationController
   include ActionView::RecordIdentifier
-  before_action :set_pin, only: [:new, :create, :edit, :update, :destroy]
-  before_action :set_comment, except: [:new, :create]
+  before_action :set_pin, only: [:new, :create, :edit, :update, :destroy, :like, :unlike]
+  before_action :set_comment, except: [:new, :create, :like, :unlike]
   
   def new
     @comment = Comment.new
@@ -42,6 +42,21 @@ class CommentsController < ApplicationController
       format.turbo_stream { }
       format.html { redirect_to pin_path(@pin) }
     end
+  end
+
+  def like
+    comment = Comment.find(params[:comment_id])
+    comment.likes.create(user_id: current_user.id)
+
+    redirect_to pin_path(@pin)
+  end
+
+  def unlike
+    comment = Comment.find(params[:comment_id])
+    like = comment.liked(current_user)
+    like.destroy
+
+    redirect_to pin_path(@pin)
   end
 
   private

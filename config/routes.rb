@@ -12,7 +12,10 @@ Rails.application.routes.draw do
 
   resources :boards
   resources :pins do
-    resources :comments
+    resources :comments do
+      post 'like'
+      delete 'unlike'
+    end
   end
   resources :likes
 end
