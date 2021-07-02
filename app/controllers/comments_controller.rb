@@ -14,6 +14,8 @@ class CommentsController < ApplicationController
       if @comment.save
         # to have it redirect so that it will render a new form instead of having to use stimulus to clear it
         format.html { redirect_to pin_path(@pin) }
+        # mailer
+        CommentMailer.new_comment_notification(@pin, @comment).deliver_now
       else
         # comment here will be Comment.new because is now invalid
         format.turbo_stream { render turbo_stream: turbo_stream.replace(dom_id(@comment), partial: 'comments/form', locals: { comment: @comment, pin: @pin }) }
