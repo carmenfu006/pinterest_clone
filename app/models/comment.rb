@@ -25,5 +25,9 @@ class Comment < ApplicationRecord
      broadcast_append_to pin, locals: { user: self.user, pin: pin }
   end
 
+  after_update_commit do
+    broadcast_replace_to pin, locals: { user: self.user, pin: pin }
+ end
+
   after_destroy_commit { broadcast_remove_to pin }
 end
