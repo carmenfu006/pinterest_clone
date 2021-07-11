@@ -12,7 +12,7 @@
   <div class='list-of-board'>
     <h2>List of boards</h2>
     <%= turbo_stream_from 'boards' %>
-    <%= turbo_frame_tag 'boards' do %>
+    <%= turbo_frame_tag "user_#{current_user.id}_boards" do %>
       <%= render @boards %>
     <% end %>
   </div>
