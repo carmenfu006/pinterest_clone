@@ -10,6 +10,12 @@ class PinsController < ApplicationController
 
     respond_to do |format|
       if pin.save
+        format.turbo_stream do
+          render turbo_stream: turbo_stream.prepend(
+            :"user_#{current_user.id}_pins",
+            partial: "pins/pin", locals: { pin: pin }
+          )
+        end
         format.html { redirect_to user_path(current_user), notice: 'Pin was successfully created.' }
       else
         format.turbo_stream { render turbo_stream: turbo_stream.replace(pin, partial: 'pins/form', locals: { pin: pin })}
@@ -34,10 +40,19 @@ class PinsController < ApplicationController
     pin = Pin.find(params[:id])
     pin.update(pin_params)
 
-    if pin.save
-      redirect_to pin_path(pin), notice: 'Pin was successfully updated.'
-    else
-      redirect_to pin_path(pin), alert: 'There was an error. Please try again.'
+    respond_to do |format|
+      if pin.save
+        format.turbo_stream do
+          render turbo_stream: turbo_stream.replace(
+            :"pin_#{pin.id}",
+            partial: "pins/pin", locals: { pin: pin }
+          )
+        end
+        format.html { redirect_to pin_path(pin), notice: 'Pin was successfully updated.' }
+      else
+        format.html { redirect_to pin_path(pin), alert: 'There was an error. Please try again.' }
+        format.turbo_stream { render turbo_stream: turbo_stream.replace(pin, partial: 'pins/form', locals: { pin: pin })}
+      end
     end
   end
 
@@ -46,6 +61,7 @@ class PinsController < ApplicationController
 
     respond_to do |format|
       if pin.destroy
+        format.turbo_stream { render turbo_stream: turbo_stream.remove(pin) }
         format.html { redirect_to user_path(current_user), notice: 'Pin was successfully destroyed.' }
       else
         format.turbo_stream { render turbo_stream: turbo_stream.replace(pin, partial: 'pins/pin', locals: { pin: pin })}

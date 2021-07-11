@@ -3,6 +3,4 @@
   <%= link_to "#{board.name}", board_path(board), 'data-turbo-frame': '_top' %>
   <br>
   <%= link_to 'Edit', edit_board_path(board) %>
-  <%= button_to 'Delete', board_path(board), method: :delete %>
-  <br>
 <% end %>

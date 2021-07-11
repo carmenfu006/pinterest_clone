@@ -23,6 +23,7 @@ gem 'redis', '~> 4.0'
 gem 'devise'
 
 gem 'hotwire-rails'
+gem "mini_magick"
 # Use Active Storage variant
 # gem 'image_processing', '~> 1.2'
 

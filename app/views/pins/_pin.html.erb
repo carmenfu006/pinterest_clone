@@ -1,4 +1,4 @@
-<%= turbo_frame_tag dom_id(pin) do %>
+<%= turbo_frame_tag dom_id(pin), class: 'col-3' do %>
   <%= link_to pin_path(pin), 'data-turbo-frame': '_top' do %>
   <% if pin.image.attached? %>
     <%= image_tag pin.image, style: 'width: 200px;', data: { pin_update_target: 'pinImage'} %>

@@ -1,3 +1,7 @@
 <%= turbo_stream.replace "board_#{@board.id}" do %>
   <%= render partial: "boards/board", locals: { board: @board } %>
 <% end %>
+
+<%= turbo_stream.replace "board_#{@board.id}_edit" do %>
+  <%= render partial: "boards/show", locals: { board: @board } %>
+<% end %>

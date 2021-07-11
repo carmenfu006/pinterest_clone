@@ -27,14 +27,12 @@
   <section class='list-of-pin'>
     <!-- Create Pin without stream and Stimulus -->
     <h2>List of Pins</h2>
-    <section class='row'>
-      <!-- <%= turbo_stream_from 'pins' %> -->
-      <!-- <%= turbo_frame_tag 'pins' do %>
-        <%= render partial: "pins/pin", collection: @pins %>
-      <% end %> -->
-      <% @pins.each do |pin| %>
+    <%= turbo_frame_tag "user_#{current_user.id}_pins", class: 'row' do %>
+      <%= render partial: "pins/pin", collection: @pins %>
+    <% end %>
+      <!-- <% @pins.each do |pin| %>
         <section class='col-3'>
-          <!-- Need the dom_id(pin) so that when board was deleted it will also delete pins streamlessly -->
+          Need the dom_id(pin) so that when board was deleted it will also delete pins streamlessly
           <%= turbo_frame_tag dom_id(pin) do %>
             <%= link_to pin_path(pin), 'data-turbo-frame': '_top' do %>
               <% if pin.image.attached? %>
@@ -44,7 +42,7 @@
             <% end %>
           <% end %>
         </section>
-      <% end %>
+      <% end %> -->
     </section>
   </section>
 </section>
