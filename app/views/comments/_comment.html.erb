@@ -16,7 +16,7 @@
 
       <% if comment.user == user %>
         <%= link_to 'Edit', edit_pin_comment_path(pin, comment) %>
-        <%= button_to 'Delete', pin_comment_path(pin, comment), method: :delete, data: { confirm: 'Are your sure?' } %>
+        <%= button_to 'Delete', pin_comment_path(pin, comment), method: :delete, data: { controller:  "confirmation", confirmation_message_value: "Are you sure?", action: "click->confirmation#confirm" } %>
       <% end %>
     </div>
   </div>

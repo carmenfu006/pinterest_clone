@@ -1,6 +1,6 @@
 <section class='board-show-page'>
   <%= render 'show', board: @board %>
-  <%= button_to 'Delete', board_path(@board), method: :delete, data: { confirm: 'Are you sure' } %>
+  <%= button_to 'Delete', board_path(@board), method: :delete, data: { controller:  "confirmation", confirmation_message_value: "Are you sure?", action: "click->confirmation#confirm" } %>
   <div class='list-of-pin'>
     <% @board.pins.each do |pin| %>
       <% if pin.image.attached? %>

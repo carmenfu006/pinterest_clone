@@ -23,6 +23,7 @@
     <%= turbo_frame_tag 'new_pin' do %>
       <%= link_to 'Create Pin', new_pin_path %>
     <% end %>
+    <%= turbo_frame_tag 'new_pin', src: new_pin_path, target: '_top' %>
   </div>
   <section class='list-of-pin'>
     <!-- Create Pin without stream and Stimulus -->

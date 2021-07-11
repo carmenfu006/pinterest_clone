@@ -10,7 +10,7 @@
       <%= turbo_frame_tag dom_id(@pin) do %>
         <%= render 'show', pin: @pin %>
       <% end %>
-      <%= button_to 'Delete', pin_path(@pin), method: :delete, data: { confirm: 'Are you sure' } %>
+      <%= button_to 'Delete', pin_path(@pin), method: :delete, data: { controller:  "confirmation", confirmation_message_value: "Are you sure?", action: "click->confirmation#confirm" } %>
     </section>
     <section class='col-12 mt-2'>
       <button class="btn btn-primary" type="button" data-bs-toggle="collapse" data-bs-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample">

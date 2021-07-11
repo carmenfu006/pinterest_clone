@@ -1,4 +1,4 @@
-<%= form_with(model: board, id: dom_id(board)) do |f| %>
+<%= form_with(model: board, id: dom_id(board), data: { controller: "reset-form", action: "turbo:submit-end->reset-form#reset" }) do |f| %>
   <%= render partial: 'shared/error_message', locals: { object: board } %>
   <%= f.label :name %>
   <%= f.text_field :name, placeholder: 'eg. Food to eat' %>
