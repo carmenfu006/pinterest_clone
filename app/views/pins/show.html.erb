@@ -1,15 +1,16 @@
 <section class='pin-show-page' data-controller='pin-update'>
   <section class='row'>
     <section class='col-12'>
-      <% if @pin.image.attached? %>
+      <!-- <% if @pin.image.attached? %>
         <%= image_tag @pin.image, style: 'width: 400px;', data: { pin_update_target: 'pinImage'} %>
       <% end %>
       <h1 data-pin-update-target='pinTitle'><%= @pin.title %></h1>
-      <h1 data-pin-update-target='pinAbout'><%= @pin.about %></h1>
+      <h1 data-pin-update-target='pinAbout'><%= @pin.about %></h1> -->
 
-      <%= turbo_frame_tag 'edit_pin' do %>
-        <%= link_to 'Edit', edit_pin_path(@pin) %>
+      <%= turbo_frame_tag dom_id(@pin) do %>
+        <%= render 'show', pin: @pin %>
       <% end %>
+      <%= button_to 'Delete', pin_path(@pin), method: :delete, data: { confirm: 'Are you sure' } %>
     </section>
     <section class='col-12 mt-2'>
       <button class="btn btn-primary" type="button" data-bs-toggle="collapse" data-bs-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample">

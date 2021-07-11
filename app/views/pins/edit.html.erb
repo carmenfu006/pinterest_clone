@@ -1,5 +1,5 @@
-<%= turbo_frame_tag 'edit_pin' do %>
-  <%= form_with(model: @pin, id: dom_id(@pin), data: { action: 'turbo:submit-end->pin-update#update' }) do |f| %>
+<%= turbo_frame_tag dom_id(@pin) do %>
+  <%= form_with(model: @pin) do |f| %>
     <%= f.select :board_id, options_from_collection_for_select(@boards, :id, :name)%>
     <%= f.label :image %>
     <%= f.file_field :image %>

@@ -45,7 +45,7 @@ class PinsController < ApplicationController
         format.turbo_stream do
           render turbo_stream: turbo_stream.replace(
             :"pin_#{pin.id}",
-            partial: "pins/pin", locals: { pin: pin }
+            partial: "pins/show", locals: { pin: pin }
           )
         end
         format.html { redirect_to pin_path(pin), notice: 'Pin was successfully updated.' }
@@ -61,7 +61,7 @@ class PinsController < ApplicationController
 
     respond_to do |format|
       if pin.destroy
-        format.turbo_stream { render turbo_stream: turbo_stream.remove(pin) }
+        # format.turbo_stream { render turbo_stream: turbo_stream.remove(pin) }
         format.html { redirect_to user_path(current_user), notice: 'Pin was successfully destroyed.' }
       else
         format.turbo_stream { render turbo_stream: turbo_stream.replace(pin, partial: 'pins/pin', locals: { pin: pin })}

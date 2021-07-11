@@ -1,0 +1,8 @@
+<%= turbo_frame_tag dom_id(pin) do %>
+  <% if pin.image.attached? %>
+    <%= image_tag pin.image, style: 'width: 400px;' %>
+  <% end %>
+  <h1><%= pin.title %></h1>
+  <h1><%= pin.about %></h1>
+  <%= link_to 'Edit', edit_pin_path(pin) %>
+<% end %>
