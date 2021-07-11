@@ -22,7 +22,7 @@ class Comment < ApplicationRecord
   end
 
   after_create_commit do
-     broadcast_append_to pin, locals: { user: self.user, pin: pin }
+    broadcast_append_to pin, target: "pin_#{self.pin.id}_comments", locals: { user: self.user, pin: pin }
   end
 
   after_update_commit do

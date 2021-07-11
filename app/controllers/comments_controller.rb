@@ -12,10 +12,16 @@ class CommentsController < ApplicationController
 
     respond_to do |format|
       if @comment.save
+        format.turbo_stream do
+          render turbo_stream: turbo_stream.append(
+            :"pin_#{@pin.id}_comments",
+            partial: "comments/comment", locals: { comment: @comment, pin: @pin, user: current_user }
+          )
+        end
         # to have it redirect so that it will render a new form instead of having to use stimulus to clear it
         format.html { redirect_to pin_path(@pin) }
         # mailer
-        CommentMailer.new_comment_notification(@pin, @comment).deliver_now
+        # CommentMailer.new_comment_notification(@pin, @comment).deliver_now
       else
         # comment here will be Comment.new because is now invalid
         format.turbo_stream { render turbo_stream: turbo_stream.replace(dom_id(@comment), partial: 'comments/form', locals: { comment: @comment, pin: @pin }) }
@@ -30,6 +36,12 @@ class CommentsController < ApplicationController
   def update
     respond_to do |format|
       if @comment.update(comment_params)
+        format.turbo_stream do
+          render turbo_stream: turbo_stream.replace(
+            :"comment_#{@comment.id}",
+            partial: "comments/comment", locals: { comment: @comment, pin: @pin, user: current_user }
+          )
+        end
         format.html { redirect_to pin_path(@pin) }
       else
         format.turbo_stream { render turbo_stream: turbo_stream.replace(dom_id(@comment), partial: 'comments/form', locals: { comment: @comment, pin: @pin }) }
@@ -41,7 +53,8 @@ class CommentsController < ApplicationController
   def destroy
     @comment.destroy
     respond_to do |format|
-      format.turbo_stream { }
+      # format.turbo_stream { }
+      format.turbo_stream { render turbo_stream: turbo_stream.remove(@comment) }
       format.html { redirect_to pin_path(@pin) }
     end
   end

@@ -27,7 +27,7 @@ class PinsController < ApplicationController
     @pin = Pin.find(params[:id])
     @boards = current_user.boards
     @comment = Comment.new
-    @comments = @pin.comments
+    @comments = @pin.comments.order("id ASC")
     @like = Like.new
   end
 

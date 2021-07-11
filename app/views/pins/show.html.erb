@@ -18,17 +18,15 @@
       </button>
       <section class="collapse mt-5" id="collapseExample">
         <section class="card card-body">
-          <section id='comments' class='list-of-comment'>
+          <section class='list-of-comment'>
             <h1>Comments</h1>
             <%= turbo_stream_from @pin %>
-            <%= turbo_frame_tag @pin do %>
+            <%= turbo_frame_tag "pin_#{@pin.id}_comments" do %>
               <%= render @comments, user: current_user, pin: @pin %>
             <% end %>
           </section>
           <section class='comment-form'>
-            <%= turbo_frame_tag 'new_comment' do %>
-              <%= render partial: 'comments/form', locals: { comment: @comment, pin: @pin, like: @like } %>
-            <% end %>
+            <%= render partial: 'comments/form', locals: { comment: @comment, pin: @pin } %>
           </section>
         </section>
       </section>
