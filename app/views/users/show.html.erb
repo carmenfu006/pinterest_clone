@@ -1,13 +1,13 @@
-<section class='user-profile' data-controller='pin-update board-options'>
+<section class='user-profile' data-controller='pin-update'>
   <div class='user-email'>
     <h1>User : <%= current_user.email %></h1>
   </div>
   <div class='create-board'>
     <h2>Create your board here</h2>
-    <%= turbo_frame_tag 'new_board' do %>
-      <!-- <%= link_to 'Create Board', new_board_path %> -->
-      <%= render 'boards/form', board: @board %>
-    <% end %>
+    <!-- <%= turbo_frame_tag 'new_board' do %>
+      <%= link_to 'Create Board', new_board_path %>
+    <% end %> -->
+    <%= render 'boards/form', board: @board %>
   <br>
   <div class='list-of-board'>
     <h2>List of boards</h2>
@@ -23,7 +23,7 @@
     <!-- <%= turbo_frame_tag 'new_pin' do %>
       <%= link_to 'Create Pin', new_pin_path %>
     <% end %> -->
-    <%= turbo_frame_tag 'new_pin', src: new_pin_path, target: '_top' %>
+    <%= turbo_frame_tag 'new_pin', src: new_pin_path %>
   </div>
   <section class='list-of-pin'>
     <!-- Create Pin without stream and Stimulus -->

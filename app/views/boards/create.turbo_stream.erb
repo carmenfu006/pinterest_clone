@@ -1,0 +1,7 @@
+<%= turbo_stream.append "user_#{current_user.id}_boards" do %>
+  <%= render partial: "boards/board", locals: { board: @board } %>
+<% end %>
+
+<%= turbo_stream.replace "new_pin" do %>
+  <%= render partial: "pins/form", locals: { boards: @boards, pin: @pin } %>
+<% end %>

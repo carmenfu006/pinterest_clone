@@ -6,15 +6,24 @@ class BoardsController < ApplicationController
 
   def create
     @board = current_user.boards.create(board_params)
+    @boards = current_user.boards
+    @pin = Pin.new
 
     respond_to do |format|
       if @board.save
-        format.turbo_stream do
-          render turbo_stream: turbo_stream.append(
-            :"user_#{current_user.id}_boards",
-            partial: "boards/board", locals: { board: @board }
-          )
-        end
+        format.turbo_stream
+        # format.turbo_stream do
+        #   render turbo_stream: turbo_stream.append(
+        #     "user_#{current_user.id}_boards",
+        #     partial: "boards/board", locals: { board: @board }
+        #   )
+        # end
+        # format.turbo_stream do
+        #   render turbo_stream: turbo_stream.replace(
+        #     "new_pin",
+        #     partial: "pins/form", locals: { boards: current_user.boards, pin: Pin.new }
+        #   )
+        # end
         format.html { redirect_to user_path(current_user), notice: 'Board was successfully created.' }
       else
         format.html { redirect_to user_path(current_user), notice: 'There was an error. Please try again.' }

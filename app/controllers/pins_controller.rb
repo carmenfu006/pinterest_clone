@@ -7,6 +7,7 @@ class PinsController < ApplicationController
   
   def create
     pin = Pin.create(pin_params)
+    @boards = current_user.boards
 
     respond_to do |format|
       if pin.save
@@ -18,7 +19,7 @@ class PinsController < ApplicationController
         end
         format.html { redirect_to user_path(current_user), notice: 'Pin was successfully created.' }
       else
-        format.turbo_stream { render turbo_stream: turbo_stream.replace(pin, partial: 'pins/form', locals: { pin: pin })}
+        format.turbo_stream { render turbo_stream: turbo_stream.replace(pin, partial: 'pins/form', locals: { pin: pin, boards: @boards })}
       end
     end
   end
@@ -39,6 +40,7 @@ class PinsController < ApplicationController
   def update
     pin = Pin.find(params[:id])
     pin.update(pin_params)
+    @boards = current_user.boards
 
     respond_to do |format|
       if pin.save
@@ -51,7 +53,7 @@ class PinsController < ApplicationController
         format.html { redirect_to pin_path(pin), notice: 'Pin was successfully updated.' }
       else
         format.html { redirect_to pin_path(pin), alert: 'There was an error. Please try again.' }
-        format.turbo_stream { render turbo_stream: turbo_stream.replace(pin, partial: 'pins/form', locals: { pin: pin })}
+        format.turbo_stream { render turbo_stream: turbo_stream.replace(pin, partial: 'pins/form', locals: { pin: pin, boards: @boards })}
       end
     end
   end

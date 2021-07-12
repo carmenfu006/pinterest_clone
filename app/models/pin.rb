@@ -8,6 +8,7 @@ class Pin < ApplicationRecord
   delegate :user, to: :board
 
   validates :title, presence: true
+  validates :image, presence: true
 
   # append will add the new pin at last which is ASC order
   # prepend will add the new pin at first which is DESC order
