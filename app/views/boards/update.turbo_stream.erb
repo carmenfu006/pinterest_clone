@@ -1,3 +1,5 @@
+<%= @flash %>
+
 <%= turbo_stream.replace "board_#{@board.id}" do %>
   <%= render partial: "boards/board", locals: { board: @board } %>
 <% end %>

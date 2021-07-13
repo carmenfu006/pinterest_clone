@@ -11,15 +11,17 @@ class PinsController < ApplicationController
 
     respond_to do |format|
       if pin.save
+        @flash = turbo_flash(notice: 'Pin was successfully created.')
         format.turbo_stream do
-          render turbo_stream: turbo_stream.prepend(
+          render turbo_stream: @flash + turbo_stream.prepend(
             :"user_#{current_user.id}_pins",
             partial: "pins/pin", locals: { pin: pin }
           )
         end
         format.html { redirect_to user_path(current_user), notice: 'Pin was successfully created.' }
       else
-        format.turbo_stream { render turbo_stream: turbo_stream.replace(pin, partial: 'pins/form', locals: { pin: pin, boards: @boards })}
+        @flash = turbo_flash(alert: 'There was an error. Please try again.')
+        format.turbo_stream { render turbo_stream: @flash + turbo_stream.replace(pin, partial: 'pins/form', locals: { pin: pin, boards: @boards })}
       end
     end
   end
@@ -44,8 +46,9 @@ class PinsController < ApplicationController
 
     respond_to do |format|
       if pin.save
+        @flash = turbo_flash(notice: 'Pin was successfully updated.')
         format.turbo_stream do
-          render turbo_stream: turbo_stream.replace(
+          render turbo_stream: @flash + turbo_stream.replace(
             :"pin_#{pin.id}",
             partial: "pins/show", locals: { pin: pin }
           )
@@ -53,7 +56,8 @@ class PinsController < ApplicationController
         format.html { redirect_to pin_path(pin), notice: 'Pin was successfully updated.' }
       else
         format.html { redirect_to pin_path(pin), alert: 'There was an error. Please try again.' }
-        format.turbo_stream { render turbo_stream: turbo_stream.replace(pin, partial: 'pins/form', locals: { pin: pin, boards: @boards })}
+        @flash = turbo_flash(alert: 'There was an error. Please try again.')
+        format.turbo_stream { render turbo_stream: @flash + turbo_stream.replace(pin, partial: 'pins/form', locals: { pin: pin, boards: @boards })}
       end
     end
   end

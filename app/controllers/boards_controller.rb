@@ -11,6 +11,7 @@ class BoardsController < ApplicationController
 
     respond_to do |format|
       if @board.save
+        @flash = turbo_flash(notice: 'Board was successfully created.')
         format.turbo_stream
         # format.turbo_stream do
         #   render turbo_stream: turbo_stream.append(
@@ -24,10 +25,11 @@ class BoardsController < ApplicationController
         #     partial: "pins/form", locals: { boards: current_user.boards, pin: Pin.new }
         #   )
         # end
-        format.html { redirect_to user_path(current_user), notice: 'Board was successfully created.' }
+        # format.html { redirect_to user_path(current_user), notice: 'Board was successfully created.' }
       else
+        @flash = turbo_flash(alert: 'There was an error. Please try again.')
         format.html { redirect_to user_path(current_user), notice: 'There was an error. Please try again.' }
-        format.turbo_stream { render turbo_stream: turbo_stream.replace(@board, partial: 'boards/form', locals: { board: @board })}
+        format.turbo_stream { render turbo_stream: @flash + turbo_stream.replace(@board, partial: 'boards/form', locals: { board: @board })}
       end
     end
   end
@@ -46,6 +48,7 @@ class BoardsController < ApplicationController
 
     respond_to do |format|
       if @board.save
+        @flash = turbo_flash(notice: 'Board was successfully updated.')
         format.turbo_stream
         # format.turbo_stream do
         #   render turbo_stream: turbo_stream.replace(
@@ -53,10 +56,11 @@ class BoardsController < ApplicationController
         #     partial: "boards/board", locals: { board: board }
         #   )
         # end
-        format.html { redirect_to user_path(current_user), notice: 'Board was successfully updated.' }
+        # format.html { redirect_to user_path(current_user), notice: 'Board was successfully updated.' }
       else
-        format.html { redirect_to user_path(current_user), notice: 'There was an error. Please try again.' }
-        format.turbo_stream { render turbo_stream: turbo_stream.replace(@board, partial: 'boards/form', locals: { board: @board })}
+        @flash = turbo_flash(alert: 'There was an error. Please try again.')
+        format.turbo_stream { render turbo_stream: @flash + turbo_stream.replace(@board, partial: 'boards/form', locals: { board: @board })}
+        # format.html { redirect_to user_path(current_user), notice: 'There was an error. Please try again.' }
       end
     end
   end
