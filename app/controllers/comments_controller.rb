@@ -61,18 +61,19 @@ class CommentsController < ApplicationController
   end
 
   def like
-    comment = Comment.find(params[:comment_id])
-    comment.likes.create(user_id: current_user.id)
+    @comment = Comment.find(params[:comment_id])
+    @like = @comment.likes.create(user_id: current_user.id)
 
     redirect_to pin_path(@pin)
+    # render turbo_stream: turbo_stream.replace("comment_#{@comment.id}_like_count", partial: 'likes/like', locals: { comment: comment })
   end
 
   def unlike
-    comment = Comment.find(params[:comment_id])
-    like = comment.liked(current_user)
-    like.destroy
-
+    @comment = Comment.find(params[:comment_id])
+    @like = @comment.liked(current_user)
+    @like.destroy
     redirect_to pin_path(@pin)
+    # render turbo_stream: turbo_stream.replace("comment_#{comment.id}_like_count", partial: 'likes/like', locals: { comment: comment })
   end
 
   private

@@ -7,7 +7,9 @@
       <p><%= comment.body %></p>
     </div>
     <div class="p-2 flex-shrink-1 bd-highlight">
-      <p><%= comment.likes.count %> like(s)</p>
+      <%= turbo_stream_from "comment_#{comment.id}_like_count" %>
+      <%= render partial: 'likes/like', locals: { comment: comment } %>
+
       <% if comment.liked(user) %>
         <%= button_to 'Unlike', pin_comment_unlike_path(pin, comment), method: :delete %>
       <% else %>
