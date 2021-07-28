@@ -26,6 +26,7 @@ export default class extends Controller {
 
     this.data.set('world', 'haha')
     console.log(event.currentTarget.dataset.color)
+    // console.log(this.world)
   }
 
   get world() {

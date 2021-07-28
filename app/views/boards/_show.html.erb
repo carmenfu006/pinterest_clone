@@ -1,4 +1,4 @@
-<%= turbo_frame_tag "board_#{@board.id}_edit" do %>
+<%= turbo_frame_tag dom_id(board) do %>
   <h1><%= board.name %></h1>
   <br>
   <%= link_to 'Edit', edit_board_path(board) %>

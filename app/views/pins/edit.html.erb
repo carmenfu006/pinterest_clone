@@ -1,13 +1,7 @@
 <%= turbo_frame_tag dom_id(@pin) do %>
-  <%= form_with(model: @pin) do |f| %>
-    <%= f.select :board_id, options_from_collection_for_select(@boards, :id, :name)%>
-    <%= f.label :image %>
-    <%= f.file_field :image %>
-    <%= f.label :title %>
-    <%= f.text_field :title %>
-    <%= f.label :about %>
-    <%= f.text_field :about %>
-    <%= f.submit 'Save Pin' %>
+  <% if @pin.image.attached? %>
+    <%= image_tag @pin.image, style: 'width: 400px;' %>
   <% end %>
+  <%= render partial: 'form', locals: { pin: @pin, boards: @boards } %>
   <%= link_to 'Cancel', pin_path(@pin) %>
 <% end %>

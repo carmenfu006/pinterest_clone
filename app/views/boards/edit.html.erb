@@ -1,9 +1,5 @@
 <%= turbo_frame_tag dom_id(@board) do %>
-  <%= render 'form', board: @board %>
-  <%= link_to 'Cancel', user_path(current_user) %>
-<% end %>
-
-<%= turbo_frame_tag "board_#{@board.id}_edit" do %>
+  <h1><%= @board.name %></h1>
   <%= render 'form', board: @board %>
   <%= link_to 'Cancel', board_path(@board) %>
 <% end %>

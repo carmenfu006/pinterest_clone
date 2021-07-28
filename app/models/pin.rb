@@ -15,5 +15,5 @@ class Pin < ApplicationRecord
 
   after_create_commit { broadcast_prepend_to 'pins', target: "user_#{self.user.id}_pins" }
   after_update_commit { broadcast_replace_to 'pins'}
-  after_destroy_commit { broadcast_remove_to 'pins'}
+  # after_destroy_commit { broadcast_remove_to 'pins'}
 end
