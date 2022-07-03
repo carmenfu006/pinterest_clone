@@ -8,6 +8,8 @@
       <%= link_to 'Create Board', new_board_path %>
     <% end %> -->
     <%= render 'boards/form', board: @board %>
+    <!-- lazy loading frames -->
+    <%= turbo_frame_tag 'new_board', src: new_board_path %>
   <br>
   <div class='list-of-board'>
     <h2>List of boards</h2>
